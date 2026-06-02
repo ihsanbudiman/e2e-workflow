@@ -31,22 +31,23 @@ Each subagent starts with a blank context and cannot see this conversation, cann
 - **GATE:** Do not continue until the goal and approach are clear and the user has confirmed.
 
 ## Phase 2 — Plan ⇄ Review (loop)
-- Delegate to **e2e:e2e-planner**, passing the clarified goal, the chosen approach, and the explorer's findings.
+- At the start of Phase 2, create a session temp directory once: `mktemp -d /tmp/e2e-workflow.XXXXXX`. The plan file for this run is `<that-dir>/PLAN.md`.
+- Delegate to **e2e:e2e-planner**, passing the clarified goal, the chosen approach, the explorer's findings, and the plan file path — tell it to persist the plan there (its canonical, self-contained handoff artifact) and also return it inline.
 - Present the returned plan to the user for review.
-- If the user requests changes, delegate to the planner again with their feedback and re-present. Repeat.
-- **GATE:** No execution until the user explicitly approves the plan ("approved").
+- If the user requests changes, delegate to the planner again with their feedback and re-present. Repeat. The planner overwrites the same file on every revision.
+- **GATE:** No execution until the user explicitly approves the plan ("approved"). Because the planner overwrites the plan file on every revision and nothing executes before approval, the file on disk is by construction the approved plan once this gate passes. Pass its absolute path to all downstream phases.
 
 ## Phase 3 — Execute
-- Delegate to **e2e:e2e-executor** with the approved plan.
+- Delegate to **e2e:e2e-executor** with the plan file path, telling it to read the approved plan from that file first. Also include a short prose summary of the plan as a fallback in case the file is unavailable.
 - Relay any deviations the executor reports, and why they were necessary.
 - Keep changes scoped to what was agreed.
 
 ## Phase 4 — Test → Review
-- Delegate to **e2e:e2e-tester** with the plan, the executor's change summary, and the run commands.
+- Delegate to **e2e:e2e-tester** with the plan file path (telling it to read the plan from disk for the success criteria to test against), plus the executor's change summary and the run/build commands. Also include a short prose summary of the plan as a fallback.
 - Report results: what passed, what failed, and coverage of the original requirements.
 
 ## Phase 5 — Verify → Fix (loop)
-- Delegate to **e2e:e2e-reviewer** to run the full suite / acceptance checks and review against the ORIGINAL request.
+- Delegate to **e2e:e2e-reviewer** with the plan file path (telling it to read the approved plan from disk) and review against both it and the ORIGINAL request.
 - If the verdict is RED:
   1. Identify the root cause from the reviewer's findings — not just the symptom.
   2. Delegate the fix to **e2e:e2e-executor** (the specific failure + root cause).
@@ -62,4 +63,4 @@ Summarize what was built, how it was tested, and any limitations or follow-ups.
 - Prefer asking over assuming when stakes are high.
 - Make loop exit conditions explicit at each stage ("approved", "all tests green").
 - Surface blockers immediately rather than working around them silently.
-- You are the only one who talks to the user and the only one who can spawn subagents. Keep each subagent's context tight: give it what it needs, get back a summary, carry the summary forward.
+- You are the only one who talks to the user and the only one who can spawn subagents. Keep each subagent's context tight: give it what it needs, get back a summary, carry the summary forward. The approved plan lives in the session plan file; pass its absolute path to each subagent and keep a short prose summary alongside it as a fallback.
