@@ -7,7 +7,7 @@
   },
   "plugins": [
     {
-      "name": "e2e-workflow",
+      "name": "e2e",
       "description": "End-to-end implementation workflow with explorer, planner, executor, tester, and reviewer subagents",
       "version": "1.0.0",
       "author": {

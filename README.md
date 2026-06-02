@@ -12,14 +12,14 @@ In Claude Code:
 
 ```text
 /plugin marketplace add ihsanbudiman/e2e-workflow
-/plugin install e2e-workflow@e2e-workflow
+/plugin install e2e@e2e-workflow
 ```
 
 Or from any terminal:
 
 ```bash
 claude plugin marketplace add ihsanbudiman/e2e-workflow
-claude plugin install e2e-workflow@e2e-workflow
+claude plugin install e2e@e2e-workflow
 ```
 
 Pin to a release tag when available:
@@ -38,7 +38,7 @@ Clone the repo and add the marketplace from the checkout path:
 git clone https://github.com/ihsanbudiman/e2e-workflow.git
 cd e2e-workflow
 claude plugin marketplace add .
-claude plugin install e2e-workflow@e2e-workflow
+claude plugin install e2e@e2e-workflow
 ```
 
 ## Use
@@ -83,5 +83,5 @@ e2e-workflow/
 ## Uninstall
 
 ```bash
-claude plugin uninstall e2e-workflow@e2e-workflow
+claude plugin uninstall e2e@e2e-workflow
 ```
