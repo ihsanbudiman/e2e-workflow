@@ -1,0 +1,17 @@
+{
+  "name": "e2e-workflow",
+  "version": "1.0.0",
+  "description": "End-to-end implementation workflow: explore → plan → execute → test → review with specialized subagents and human approval gates",
+  "author": {
+    "name": "bvt-ihsanbudiman"
+  },
+  "license": "MIT",
+  "keywords": [
+    "e2e",
+    "workflow",
+    "orchestration",
+    "subagents",
+    "testing",
+    "planning"
+  ]
+}
