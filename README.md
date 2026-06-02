@@ -1,12 +1,51 @@
-# e2e-workflow (Claude Code plugin)
+# e2e-workflow
 
-[![Repository](https://img.shields.io/badge/GitHub-ihsanbudiman%2Fe2e--workflow-blue)](https://github.com/ihsanbudiman/e2e-workflow)
+A Claude Code plugin that runs a full implementation as a guided pipeline:
+**explore → clarify → plan → execute → test → review** — with human approval gates
+and five specialized subagents, each in its own context.
 
-End-to-end implementation workflow for Claude Code: **explore → clarify → plan → execute → test → review**, with human approval gates and five specialized subagents.
+## Features
+
+### Six-phase workflow
+One command (`/e2e:workflow`) drives the whole thing. An orchestrator owns the
+conversation and hands each phase to a focused subagent, carrying results forward.
+
+| Phase | Subagent | What it does |
+| ----- | -------- | ------------ |
+| Clarify | Orchestrator | Restates the goal, surfaces assumptions, proposes approaches |
+| Explore | `e2e-explorer` | Read-only map of the code, conventions, and build/run/test commands |
+| Plan | `e2e-planner` | Step-by-step plan with success criteria |
+| Execute | `e2e-executor` | Implements the approved plan |
+| Test | `e2e-tester` | Writes and runs real tests, reports pass/fail |
+| Review | `e2e-reviewer` | Independent GREEN/RED verdict against the original request |
+
+### Human approval gates
+You stay in control at the points that matter. Nothing gets built until you confirm
+the goal and approach, and nothing executes until you explicitly approve the plan.
+
+### Specialized subagents, least privilege
+Each subagent runs in an isolated context with only the tools it needs. Explorer,
+planner, and reviewer are read-only; only the executor and tester can write. Heavier
+reasoning roles (planner, reviewer) run on a stronger model; execution roles run
+faster and cheaper.
+
+### Durable plan handoff
+The approved plan is written to a per-run session file, and every downstream agent
+reads it from disk — so the plan stays intact across phases instead of degrading
+through summaries. A prose fallback is passed alongside it in case the file is
+unavailable.
+
+### Adversarial review with a loop cap
+The reviewer actively tries to prove the work *isn't* done: re-running the suite
+itself, hunting edge cases, and checking against the original request rather than just
+the plan. If it stays RED, the fix loop caps at three attempts and hands the decision
+back to you instead of spinning.
+
+### Your git, your call
+The workflow never commits for you. Changes are left in your working tree so you
+decide what to stage and commit.
 
 ## Install
-
-### From GitHub (recommended)
 
 In Claude Code:
 
@@ -15,73 +54,20 @@ In Claude Code:
 /plugin install e2e@e2e-workflow
 ```
 
-Or from any terminal:
-
-```bash
-claude plugin marketplace add ihsanbudiman/e2e-workflow
-claude plugin install e2e@e2e-workflow
-```
-
-Pin to a release tag when available:
-
-```bash
-claude plugin marketplace add ihsanbudiman/e2e-workflow@v1.0.0
-```
-
-Enable the plugin in Claude Code settings if prompted.
-
-### Local development
-
-Clone the repo and add the marketplace from the checkout path:
-
-```bash
-git clone https://github.com/ihsanbudiman/e2e-workflow.git
-cd e2e-workflow
-claude plugin marketplace add .
-claude plugin install e2e@e2e-workflow
-```
-
 ## Use
-
-Claude Code namespaces plugin commands as `/plugin:command`. This plugin registers as **`e2e`**, so you run:
 
 ```text
 /e2e:workflow Add rate limiting to the API
 ```
 
-Or start Claude Code and run `/e2e:workflow` with no args — it will ask what you want built.
-
-## Workflow
-
-| Phase | Agent                          | Role                                                     |
-| ----- | ------------------------------ | -------------------------------------------------------- |
-| 1     | Orchestrator (`/e2e:workflow`) | Clarify goal, confirm approach                           |
-| 2     | `e2e-explorer`        | Read-only codebase map                                   |
-| 3     | `e2e-planner`         | Step-by-step plan (user must say **approved**)           |
-| 4     | `e2e-executor`        | Implementation                                           |
-| 5     | `e2e-tester`          | Tests + run results                                      |
-| 6     | `e2e-reviewer`        | GREEN/RED gate; loops with executor + tester until GREEN |
-
-## Layout
-
-```
-e2e-workflow/
-├── .claude-plugin/
-│   ├── plugin.json       # Plugin manifest
-│   └── marketplace.json  # Marketplace (source: ./)
-├── commands/
-│   └── workflow.md       # /e2e:workflow slash command
-├── agents/
-│   ├── e2e-explorer.md
-│   ├── e2e-planner.md
-│   ├── e2e-executor.md
-│   ├── e2e-tester.md
-│   └── e2e-reviewer.md
-└── README.md
-```
+Or run `/e2e:workflow` with no arguments and it will ask what you want built.
 
 ## Uninstall
 
-```bash
+```text
 claude plugin uninstall e2e@e2e-workflow
 ```
+
+## License
+
+MIT
