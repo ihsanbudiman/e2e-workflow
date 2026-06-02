@@ -1,5 +1,5 @@
 {
-  "name": "e2e-workflow",
+  "name": "e2e",
   "version": "1.0.0",
   "description": "End-to-end implementation workflow: explore → plan → execute → test → review with specialized subagents and human approval gates",
   "author": {

@@ -1,6 +1,6 @@
 ---
 name: e2e-planner
-description: Produces the concrete, step-by-step implementation plan for the /e2e workflow, using the clarified goal and the explorer's findings. Read-only — it outputs a reviewable plan and does not implement anything.
+description: Produces the concrete, step-by-step implementation plan for /e2e:workflow, using the clarified goal and the explorer's findings. Read-only — it outputs a reviewable plan and does not implement anything.
 tools: Read, Grep, Glob, Bash
 model: opus
 effort: high

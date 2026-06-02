@@ -43,17 +43,19 @@ claude plugin install e2e-workflow@e2e-workflow
 
 ## Use
 
-```bash
-/e2e Add rate limiting to the API
+Claude Code namespaces plugin commands as `/plugin:command`. This plugin registers as **`e2e`**, so you run:
+
+```text
+/e2e:workflow Add rate limiting to the API
 ```
 
-Or start Claude Code and run `/e2e` with no args — it will ask what you want built.
+Or start Claude Code and run `/e2e:workflow` with no args — it will ask what you want built.
 
 ## Workflow
 
-| Phase | Agent                 | Role                                                     |
-| ----- | --------------------- | -------------------------------------------------------- |
-| 1     | Orchestrator (`/e2e`) | Clarify goal, confirm approach                           |
+| Phase | Agent                          | Role                                                     |
+| ----- | ------------------------------ | -------------------------------------------------------- |
+| 1     | Orchestrator (`/e2e:workflow`) | Clarify goal, confirm approach                           |
 | 2     | `e2e-explorer`        | Read-only codebase map                                   |
 | 3     | `e2e-planner`         | Step-by-step plan (user must say **approved**)           |
 | 4     | `e2e-executor`        | Implementation                                           |
@@ -68,7 +70,7 @@ e2e-workflow/
 │   ├── plugin.json       # Plugin manifest
 │   └── marketplace.json  # Marketplace (source: ./)
 ├── commands/
-│   └── e2e.md            # /e2e slash command
+│   └── workflow.md       # /e2e:workflow slash command
 ├── agents/
 │   ├── e2e-explorer.md
 │   ├── e2e-planner.md

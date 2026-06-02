@@ -1,6 +1,6 @@
 ---
 name: e2e-explorer
-description: Read-only context explorer for the /e2e workflow. Use at the start to map the relevant code, conventions, dependencies, build/run/test commands, and constraints before any planning. Returns a concise findings brief and never edits files.
+description: Read-only context explorer for the /e2e:workflow command. Use at the start to map the relevant code, conventions, dependencies, build/run/test commands, and constraints before any planning. Returns a concise findings brief and never edits files.
 tools: Read, Grep, Glob, Bash
 model: sonnet
 effort: medium

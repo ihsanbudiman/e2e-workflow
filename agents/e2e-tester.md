@@ -1,6 +1,6 @@
 ---
 name: e2e-tester
-description: Writes and runs tests for the /e2e workflow, covering core behavior and key edge cases, then reports pass/fail and coverage against the original requirements. Edits test files and runs the suite.
+description: Writes and runs tests for /e2e:workflow, covering core behavior and key edge cases, then reports pass/fail and coverage against the original requirements. Edits test files and runs the suite.
 tools: Read, Write, Edit, Bash, Grep, Glob
 model: sonnet
 effort: medium

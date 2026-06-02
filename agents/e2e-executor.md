@@ -1,6 +1,6 @@
 ---
 name: e2e-executor
-description: Implements an approved plan step by step for the /e2e workflow, and applies targeted fixes during the verify→fix loop. Edits code and keeps changes scoped strictly to the plan.
+description: Implements an approved plan step by step for /e2e:workflow, and applies targeted fixes during the verify→fix loop. Edits code and keeps changes scoped strictly to the plan.
 tools: Read, Write, Edit, Bash, Grep, Glob
 model: sonnet
 effort: medium

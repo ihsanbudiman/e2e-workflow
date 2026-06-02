@@ -1,6 +1,6 @@
 ---
 name: e2e-reviewer
-description: Independent verification gate for the /e2e workflow. Re-runs the full suite / acceptance checks and adversarially reviews the result against the ORIGINAL request. Read-only — returns a GREEN/RED verdict with prioritized findings.
+description: Independent verification gate for /e2e:workflow. Re-runs the full suite / acceptance checks and adversarially reviews the result against the ORIGINAL request. Read-only — returns a GREEN/RED verdict with prioritized findings.
 tools: Read, Grep, Glob, Bash
 model: opus
 effort: high

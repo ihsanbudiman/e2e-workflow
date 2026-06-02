@@ -1,5 +1,5 @@
 ---
-description: End-to-end implementation workflow — orchestrates explore → plan → execute → test → review across specialized subagents, with human approval gates. Invoke as /e2e <what you want built>.
+description: End-to-end implementation workflow — orchestrates explore → plan → execute → test → review across specialized subagents, with human approval gates. Invoke as /e2e:workflow <what you want built>.
 argument-hint: [what you want built, fixed, or implemented end-to-end]
 disable-model-invocation: true
 model: opus
