@@ -1,7 +1,7 @@
 {
   "name": "e2e",
-  "version": "1.0.0",
-  "description": "End-to-end implementation workflow: explore → plan → execute → test → review with specialized subagents and human approval gates",
+  "version": "2.0.0",
+  "description": "End-to-end development workflow: understand → define → design → decompose → build → verify → finalize with seven specialized subagents and human approval gates",
   "author": {
     "name": "ihsanbudiman"
   },

@@ -8,8 +8,8 @@
   "plugins": [
     {
       "name": "e2e",
-      "description": "End-to-end implementation workflow with explorer, planner, executor, tester, and reviewer subagents",
-      "version": "1.0.0",
+      "description": "End-to-end development workflow with explorer, designer, planner, executor, tester, reviewer, and finalizer subagents",
+      "version": "2.0.0",
       "author": {
         "name": "ihsanbudiman"
       },
